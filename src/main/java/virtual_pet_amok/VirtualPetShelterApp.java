@@ -37,7 +37,7 @@ public class VirtualPetShelterApp {
 
 	private static void hasPets(VirtualPetShelter shelter, Scanner input, String[] deathDescrip) {
 		System.out.println("\rThis is the status of your pets:\r");
-		for (Entry<String, VirtualPet> currentPet : shelter.getAllPets().entrySet()) {
+		for (Entry<String, OrganicPet> currentPet : shelter.getAllPets().entrySet()) {
 			System.out.println("\r" + currentPet.getValue().displayStats());
 		}
 		System.out.println("\rWhat would you like to do next?\r\n" + "\r\n" + "1. Feed the pets\r\n"

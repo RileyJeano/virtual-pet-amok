@@ -1,97 +1,136 @@
 package virtual_pet_amok;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class VirtualPetShelter {
-	private Map<String, VirtualPet> pets = new HashMap<String, VirtualPet>();
+	private Map<String, Pet> pets = new HashMap<String, Pet>();
 	private int deaths = 0;
 	private boolean open = true;
 	public boolean shelterCloses = false;
 	public int deathDecision = 0;
 	public String deadName = "";
 
-	public void addPet(VirtualPet newPet) {
+	public void addPet(Pet newPet) {
 		pets.put(newPet.getName(), newPet);
 	}
-	// TODO make a generate pet method?
 
 	public void feedAllPets() {
-		for (Entry<String, VirtualPet> currentPet : pets.entrySet()) {
-			currentPet.getValue().feedPet();
+		for (Pet currentPet : getPets()) {
+			if (currentPet instanceof OrganicPet) {
+				((OrganicPet) currentPet).feedPet();
+			}
 		}
 	}
 
 	public void waterAllPets() {
-		for (Entry<String, VirtualPet> currentPet : pets.entrySet()) {
-			currentPet.getValue().waterPet();
+		for (Pet currentPet : getPets()) {
+			if (currentPet instanceof OrganicPet) {
+				((OrganicPet) currentPet).waterPet();
+			}
 		}
 	}
 
 	public void playWithAllPets() {
-		for (Entry<String, VirtualPet> currentPet : pets.entrySet()) {
-			currentPet.getValue().playWithPet();
+		for (Pet currentPet : getPets()) {
+			currentPet.playWithPet();
 		}
 	}
 
 	public void takeIn(String name) {
-		VirtualPet newPet = new VirtualPet(name);
+		Pet newPet = new Pet(name);
 		addPet(newPet);
 	}
 
-	public Map<String, VirtualPet> getAllPets() {
+	public Map<String, Pet> getAllPets() {
 		return pets;
 	}
 
-	public void adoptOut(String petID) {
-		pets.remove(petID);
+	public void adoptOut(String petName) {
+		pets.remove(petName);
 	}
 
-	public VirtualPet getPet(String petID) {
+	public Pet getPet(String petName) {
 
-		return pets.get(petID);
+		return pets.get(petName);
 
 	}
 
-	public void playWithPet(String petID) {
+	public void playWithPet(String petName) {
 
-		getPet(petID).playWithPet();
+		getPet(petName).playWithPet();
 
+	}
+
+	// walk all dogs
+	// TODO TEST
+	public void walkAllDogs() {
+		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+			if (currentPet instanceof Walkable) {
+				((Walkable) currentPet).walk();
+
+			}
+		}
+	}
+
+	// clean a dog cage
+	public void cleanAllCages() {
+		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+			if (currentPet instanceof Dog) {
+				((Dog) currentPet).cleanCage();
+
+			}
+		}
+	}
+
+	// clean the litter boxes
+	public void cleanLitterBox() {
+		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+			if (currentPet instanceof Cat) {
+				((Cat) currentPet).cleanBox();
+
+			}
+		}
+	}
+
+	// oil all robots
+	public void oilAllRobots() {
+		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+			if (currentPet instanceof RobotPet) {
+				((RobotPet) currentPet).oil();
+
+			}
+		}
 	}
 
 	public void tick() {
+
 		List<String> deadList = new ArrayList<String>();
 		deathDecision = 0;
-		for (Entry<String, VirtualPet> currentPet : pets.entrySet()) {
+		for (Entry<String, Pet> currentPet : pets.entrySet()) {
 			if (deaths > 10) {
 				open = false;
 				shelterCloses = true;
 			}
+
 			currentPet.getValue().tick();
 
 			if (currentPet.getValue().isDead()) {
 				deaths++;
 				deadList.add(currentPet.getKey());
-				deathDecision = currentPet.getValue().deathDiscription;
 				deadName = currentPet.getValue().getName();
 
 			}
 		}
-		// remove dead pets from pets collection
-		// You can't remove an element WHILE iterating over it.
-		// Wait, but itsn't that what I'm doing?
 		for (String deadPet : deadList) {
 			pets.remove(deadPet);
 
 		}
 
-	}
-
-	public int deathDescription() {
-		return deathDecision;
 	}
 
 	public String deadName() {
@@ -104,6 +143,28 @@ public class VirtualPetShelter {
 
 	public boolean isEmpty() {
 		return pets.isEmpty();
+	}
+
+	public Collection<Pet> getPets() {
+		return pets.values();
+	}
+
+	public void generatePet(String name, String species, boolean robotitude) {
+		if (robotitude) {
+			RobotPet pet = new RobotPet(name, species);
+			addPet(pet);
+		} else {
+			if (species.equalsIgnoreCase("cat")) {
+				Cat pet = new Cat(name);
+				addPet(pet);
+				// make a cat
+			} else {
+				// make a dog
+				Dog pet = new Dog(name);
+				addPet(pet);
+			}
+		}
+
 	}
 
 }
