@@ -67,7 +67,6 @@ public class VirtualPetShelter {
 	}
 
 	// walk all dogs
-	// TODO TEST
 	public void walkAllDogs() {
 		for (Entry<String, Pet> currentPet : pets.entrySet()) {
 			if (currentPet instanceof Walkable) {
@@ -118,8 +117,9 @@ public class VirtualPetShelter {
 			}
 
 			currentPet.getValue().tick();
-
-			if (currentPet.getValue().isDead()) {
+			currentPet.getValue().isDead();
+//TODO ask max
+			if (currentPet.getValue().getDead() == true) {
 				deaths++;
 				deadList.add(currentPet.getKey());
 				deadName = currentPet.getValue().getName();
@@ -165,6 +165,10 @@ public class VirtualPetShelter {
 			}
 		}
 
+	}
+
+	public void shutDown() {
+		open = false;
 	}
 
 }

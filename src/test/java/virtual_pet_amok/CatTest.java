@@ -29,4 +29,10 @@ public class CatTest {
 
 	}
 
+	@Test
+	public void shouldHaveSpecies() {
+		Cat catTestOne = new Cat("Uno");
+		Assert.assertEquals("cat", catTestOne.getSpecies());
+	}
+
 }

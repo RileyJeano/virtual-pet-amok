@@ -26,14 +26,7 @@ public class Pet {
 		this.boredom = 0;
 		this.health = 100;
 		this.description = generateDescription();
-		this.species = generateSpecies();
-	}
 
-	private String generateSpecies() {
-		String[] speciesList = { "dog", "cat" };
-		int rand = (int) Math.random() * speciesList.length;
-		String species = speciesList[rand];
-		return species;
 	}
 
 	public Pet(String name, String species) {
@@ -42,7 +35,11 @@ public class Pet {
 		this.happiness = 0;
 		this.boredom = 0;
 		this.health = 100;
+		this.species = species;
 		this.description = generateDescription();
+	}
+
+	public void setSpecies(String species) {
 		this.species = species;
 	}
 
@@ -79,23 +76,21 @@ public class Pet {
 	}
 
 	public String getDescription() {
+
 		return description;
 	}
 
-	// TODO this doesn't make sense
 	public String generateDescription() {
-		String[] list1 = { "smooth pebble", "skipping stone", "mossy boulder", "solid rock", "shambling pile of gravel",
-				"crumbling slab of stone", "hefty boulder", "stony tablet", "solid edifice" };
-		String[] list2 = { "smells", "tastes", "looks", "seems", "sounds", "feels", "comes across",
-				"gives off the impression", "pretends" };
-		String[] list3 = { "it was a president in a past life. Maybe Abraham Lincoln.", "the sea breeze.",
-				"it once took part in a landslide.", "it yearns to be free.",
-				"it taught itself how to walk. And run. Quickly.", "it used to live in Hollywood.",
-				"it knows something personal about you, but won't say what.",
-				"it learned how to cook really nice meals, but never does.", "it spends way too much on its coffee.",
-				"it enjoys the finer things in life.", "it knows how to do trigonometry.", "it can drive stick shift.",
-				"it has more friends than you do.", "it was skipped across many lakes as a child", "a riddle",
-				"the sidewalk after a rainstorm" };
+		String[] list1 = { "with big eared", "with  floppy ears", "with a long tail", "with spots", "with a smile",
+				"with stripes", "with big paws", "with a pink nose", "with mismatched eyes" };
+		String[] list2 = { "smells like", "tastes like", "looks like", "seems like", "sounds like", "feels like",
+				"comes across like", "gives off the impression that", "pretends that" };
+		String[] list3 = { "it is really a fish.", "it is the sea foam.", "it has been up to something.",
+				"it is really excited to see you.", "it is covered in mud.", "it used to live in the woods.",
+				"it knows something personal about you, but won't say what.", "it is plotting something.",
+				"it spends way too much on its coffee.", "it enjoys the finer things in life.",
+				"it knows how to do trigonometry.", "it can drive stick shift.", "it has more friends than you do.",
+				"it knows what its doing with its life.", "it can speak three languages.", "it is the forest floor" };
 		Random randNum = new Random();
 		int rand1 = randNum.nextInt(list1.length);
 		String noun1 = list1[rand1];
@@ -105,7 +100,8 @@ public class Pet {
 		randNum = new Random();
 		int rand3 = randNum.nextInt(list3.length);
 		String noun2 = list3[rand3];
-		return "This " + noun1 + " " + verb + " like " + noun2;
+		return "This " + getSpecies() + " " + noun1 + " " + verb + " like " + noun2;
+
 	}
 
 	public void playWithPet() {
@@ -129,8 +125,15 @@ public class Pet {
 
 	}
 
-	public boolean isDead() {
-		return dead;
+	// TODO Max is this the best way to do this???
+	public void isDead() {
+		if (health <= 0) {
+			toggleDeath();
+		}
 	}
 
+	public String displayStats() {
+		return "WHHHAAAT";
+
+	}
 }

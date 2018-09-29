@@ -83,4 +83,10 @@ public class DogTest {
 		Assert.assertEquals(92, underTest.getHealth());
 	}
 
+	@Test
+	public void shouldHaveSpecies() {
+		Dog dogTestOne = new Dog("Uno");
+		Assert.assertEquals("dog", dogTestOne.getSpecies());
+	}
+
 }

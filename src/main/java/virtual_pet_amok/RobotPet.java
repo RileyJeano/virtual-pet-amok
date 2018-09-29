@@ -26,10 +26,6 @@ public class RobotPet extends Pet implements Walkable {
 		return rust;
 	}
 
-	public boolean isDead() {
-		return getDead();
-	}
-
 	public void oil() {
 		setHealth(getHealth() + 4);
 	}
@@ -45,10 +41,17 @@ public class RobotPet extends Pet implements Walkable {
 	}
 
 	public void walk() {
-		if (getSpecies().equals("dog")) {
+		if (getSpecies().contains("dog")) {
 			rust -= 4;
 			increaseHappiness(3);
 		}
+	}
+
+	@Override
+	public String displayStats() {
+		return getName() + "\r" + getDescription() + "\r|| Happiness: " + getHappiness() + " || Health " + getHealth()
+				+ " || Boredom " + getBoredom() + "|| Rust " + rust;
+
 	}
 
 }

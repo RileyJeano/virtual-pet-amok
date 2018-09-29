@@ -40,4 +40,16 @@ public class PetTest {
 		Assert.assertEquals(2, underTest.getBoredom());
 	}
 
+	@Test
+	public void shouldDieNow() {
+		Pet underTest = new Pet("Hylda", 0, 0, 0);
+		underTest.isDead();
+		Assert.assertEquals(true, underTest.getDead());
+	}
+
+	@Test
+	public void shouldHaveSpecies() {
+		Pet catTestOne = new Cat("Uno");
+		Assert.assertEquals("cat", catTestOne.getSpecies());
+	}
 }

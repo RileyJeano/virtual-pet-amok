@@ -108,8 +108,8 @@ public class VirtualPetShelterTest {
 	@Test
 	public void shouldRemoveAPetThatsDied() {
 		VirtualPetShelter underTest = new VirtualPetShelter();
-		OrganicPet pet1 = new OrganicPet("Cuddles");
-		OrganicPet pet2 = new OrganicPet("Checkers");
+		OrganicPet pet1 = new OrganicPet("Sandy", 0, 0, 0, 0, 0);
+		OrganicPet pet2 = new OrganicPet("Checkers", 0, 0, 0, 0, 0);
 		underTest.addPet(pet1);
 		underTest.addPet(pet2);
 		underTest.tick();
@@ -133,11 +133,18 @@ public class VirtualPetShelterTest {
 	@Test
 	public void shouldRemoveDeadPet() {
 		VirtualPetShelter underTest = new VirtualPetShelter();
-		OrganicPet pet = new OrganicPet("Sandy");
+		OrganicPet pet = new OrganicPet("Sandy", 0, 0, 0, 0, 0);
 		underTest.addPet(pet);
-		pet.feedPet();
 		underTest.tick();
 		Assert.assertEquals(0, underTest.getAllPets().size());
 
 	}
+
+	@Test
+	public void shouldShutShelterDown() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.shutDown();
+		Assert.assertEquals(false, underTest.isOpen());
+	}
+
 }

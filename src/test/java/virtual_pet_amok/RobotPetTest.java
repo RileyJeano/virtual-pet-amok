@@ -15,7 +15,7 @@ public class RobotPetTest {
 
 	@Test
 	public void shouldWalk() {
-		RobotPet underTest = new RobotPet("Pete", 5, 5, 5, 5);
+		RobotPet underTest = new RobotPet("Pete", "dog");
 		int initialRust = underTest.getRust();
 		underTest.walk();
 		int expected = underTest.getRust();

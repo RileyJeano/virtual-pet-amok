@@ -7,163 +7,166 @@ public class VirtualPetShelterApp {
 
 	public static void main(String[] args) {
 		VirtualPetShelter shelter = new VirtualPetShelter();
-		Scanner input = new Scanner(System.in);
-		String[] deathDescriptions = { "", " has run away", " has become overstimulated",
-				" wasn't watered and now it's crumbled to dust", " has gotten too fat", " has starved",
-				" has drowned" };
 
+		// make some starter pets
+		Cat starterPet1 = new Cat("Spork", "cat");
+		Cat starterPet2 = new Cat("Spatula", "cat");
+		Dog starterPet3 = new Dog("Poppyseed", "dog");
+		RobotPet starterPet4 = new RobotPet("Microwave", "robot cat");
+		RobotPet starterPet5 = new RobotPet("Eggbeater", "robot dog");
+		shelter.addPet(starterPet1);
+		shelter.addPet(starterPet2);
+		shelter.addPet(starterPet3);
+		shelter.addPet(starterPet4);
+		shelter.addPet(starterPet5);
+
+		Scanner input = new Scanner(System.in);
+
+		// Bootup flavor text
 		System.out.println("One day, you find yourself wanting to make a difference in the world.");
 		System.out.println("While wandering and pondering your true calling, you come across a direlict building.");
-		System.out.println("The sign reads \"Max and Riley's Shelter for Abandoned and Feral Pet Rocks");
+		System.out.println("The sign reads \"Max and Riley's Shelter for Abandoned and Feral Pets");
 		System.out.println("You go inside to find the director staring at a pen full of straw.");
 		System.out.println("He looks you dead in the eyes, hands you the keys to the shelter, and walks out.");
 		System.out.println("You are the director now.");
 
+		// Main game Loop
 		while (shelter.isOpen()) {
 			if (shelter.isEmpty()) {
-				noPets(shelter, input);
+				// TODO you've killed all your pets somehow
+				System.out.println(
+						"Every pet in your shelter has died. As you start to think this might not be the job for you,\rthe police come to your shelter and shut you down. The world's lost and abandoned pets rejoice.");
+				// TODO just double check
+				shelter.shutDown();
 			} else {
-				hasPets(shelter, input, deathDescriptions);
+				for (Pet currentPet : shelter.getPets()) {
+					System.out.println("\r" + currentPet.displayStats());
+				}
+				// Main choice menu
+				shelterActionsMenu(input, shelter);
+				shelter.tick();
+			}
+		}
+//		if (shelter.shelterCloses == true) {
+//
+//			System.out.println(
+//					"\nOh no! You're murderous pet rampage has caused the cops to be called. Our once proud shelter has now been closed for rock cruelty.");
+//		}
 
+		input.close();
+	}
+
+	private static void shelterActionsMenu(Scanner input, VirtualPetShelter shelter) {
+		System.out.println("\r");
+		System.out.println("What would you like to do? Type a choice:");
+		System.out.println("ADD: Take in a new pet from the streets, where abandoned pets loiter in abundance.");
+		System.out.println("ADOPT: Put one of your pets up for adoption.");
+		System.out.println("FEED: Feed all pets that food.");
+		System.out.println("WATER: Give water to all pets that need this particular liquid.");
+		System.out.println("OIL: Give oil to all pets that need this particular liquid.");
+		System.out.println("WALK: Walk all dogs or automated approximations.");
+		System.out.println("PLAY: Play with every pet in the shelter.");
+		System.out.println("DOG POOP: clean all dog cages.");
+		System.out.println("LITTER BOX: clean the single litter box.");
+		String userChoice = input.nextLine().toUpperCase();
+
+		switch (userChoice) {
+		case "ADD":
+			takeInPet(input, shelter);
+			break;
+
+		case "ADOPT":
+			System.out.println("Which pet would you like a loving family to adopt?");
+			String petToAdopt = input.nextLine();
+			if (shelter.getAllPets().containsKey(petToAdopt)) {
+				shelter.adoptOut(petToAdopt);
+				System.out.println(
+						petToAdopt + " was carried away into the night. By a loving family.\r\r... Don't worry... :|");
+			} else {
+				System.out.println("Nobody named " + petToAdopt + " lives here.");
 			}
 
-		}
-		if (shelter.shelterCloses == true) {
+			break;
 
+		case "FEED":
+			// TODO generate a random food each time?
+			System.out.println("You break out your enormous bag of pet chow.");
+			shelter.feedAllPets();
+			break;
+
+		case "WATER":
+			// TODO generate a random drink?
+			System.out.println("You come back from the store with 300 gallons of water. Will it be enough?");
+			shelter.waterAllPets();
+			break;
+
+		case "OIL":
 			System.out.println(
-					"\nOh no! You're murderous pet rampage has caused the cops to be called. Our once proud shelter has now been closed for rock cruelty.");
+					"You swing by the auto parts store because they're having a deal, then oil every robot in your shelter.");
+			shelter.oilAllRobots();
+			break;
+
+		case "WALK":
+			System.out.println(
+					"\"Who wants to go on a walk!?\" you ask excitedly. The cats don't, but you take all the dogs.");
+			shelter.walkAllDogs();
+			break;
+
+		case "PLAY":
+			System.out.println(
+					"Using your herculean amounts of compassion, you give each and every pet the attention it deserves.\rEvery pet in the shelter appreciates that you've played with them.");
+			shelter.playWithAllPets();
+			break;
+
+		case "DOG POOP":
+			System.out.println(
+					"You pull on your gloves and prepare consider if you should get a plumber to make dog toilets for each cage.");
+			System.out.println("No.\rThis is the only way.");
+			shelter.cleanAllCages();
+			break;
+
+		case "LITTER BOX":
+			System.out.println("You clean the one and only litter box. It's gross, but at least there's only one box.");
+			shelter.cleanLitterBox();
+			break;
+
+		default:
+			System.out.println("Invalid choice.");
+			break;
+
 		}
 	}
 
-	private static void hasPets(VirtualPetShelter shelter, Scanner input, String[] deathDescrip) {
-		System.out.println("\rThis is the status of your pets:\r");
-		for (Entry<String, OrganicPet> currentPet : shelter.getAllPets().entrySet()) {
-			System.out.println("\r" + currentPet.getValue().displayStats());
-		}
-		System.out.println("\rWhat would you like to do next?\r\n" + "\r\n" + "1. Feed the pets\r\n"
-				+ "2. Water the pets\r\n" + "3. Play with the pets\r\n" + "4. Put a pet up for adoption\r\n"
-				+ "5. Admit a new pet\r\n" + "6. Exit");
-		shelter.tick();
-		int deathDescription = shelter.deathDescription();
-		String deathDanme = shelter.deadName();
-
-		System.out.println("\n" + deathDanme + deathDescrip[deathDescription]);
-
+	private static void takeInPet(Scanner input, VirtualPetShelter shelter) {
+		System.out.println("Please name the animal you will take it:");
+		String nameChoice = input.nextLine();
+		System.out.println("What kind of animal would you like to add to your shelter? Enter a number.");
+		System.out.println("1: Normal Cat");
+		System.out.println("2: Normal Dog");
+		System.out.println("3: Robot Cat");
+		System.out.println("4: Robot Dog");
 		String userChoice = input.nextLine();
-		userChoice(shelter, userChoice, input);
-
-	}
-
-	private static void userChoice(VirtualPetShelter shelter, String userChoice, Scanner input) {
+		// TODO make asbestos sick
+		Pet newPet = new Cat("Asbestos", "cat");
 		switch (userChoice) {
 		case "1":
-			feedPets(shelter, input);
+			newPet = new Cat(nameChoice, "cat");
 			break;
 		case "2":
-			waterPets(shelter, input);
+			newPet = new Dog(nameChoice, "dog");
 			break;
 		case "3":
-			playWithPets(shelter, input);
+			newPet = new RobotPet(nameChoice, "robot cat");
 			break;
 		case "4":
-			adoptOutPets(shelter, input);
-
-			break;
-		case "5":
-			takeInNewPet(shelter, input);
-
-			break;
-		case "6":
-			resignFromShelter();
+			newPet = new RobotPet(nameChoice, "robot dog");
 			break;
 		default:
-			System.out.println("Invalid input... ");
+			System.out.println("Invalid choice");
+			System.out.println("You will adopt a cat involuntarily");
 			break;
 		}
-
-	}
-
-	private static void resignFromShelter() {
-		System.out.println("You burned down the shelter. System failure...");
-		System.exit(0);
-	}
-
-	private static void takeInNewPet(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("\rName your new pet: ");
-		String newName = input.nextLine();
-		shelter.takeIn(newName);
-	}
-
-	private static void adoptOutPets(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("\rWhich rock do you want to adpot out?");
-		String petToAdopt = input.nextLine();
-		if (!shelter.getAllPets().containsKey(petToAdopt)) {
-			System.out.println("You cannot adopt out a pet you do not have.");
-		} else {
-			onlyAdoptOutIfHappyEnough(shelter, petToAdopt);
-		}
-	}
-
-	private static void onlyAdoptOutIfHappyEnough(VirtualPetShelter shelter, String petToAdopt) {
-		int happiness = shelter.getPet(petToAdopt).getHappiness();
-		if (happiness >= 10) {
-			System.out.println(shelter.getPet(petToAdopt).getName() + " was adopted to a lovely family!");
-			shelter.adoptOut(petToAdopt);
-
-		} else {
-			System.out.println("\rThis pet is not happy enough for anyone to want it.");
-		}
-	}
-
-	private static void playWithPets(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("Type ALL to play with all your rocks or type a rock's name to play with just that one.");
-		String playChoice = input.nextLine();
-		if (playChoice.equalsIgnoreCase("all")) {
-			shelter.playWithAllPets();
-		} else {
-			if (shelter.getAllPets().containsKey(playChoice)) {
-				shelter.getPet(playChoice).playWithPet();
-				System.out.println("\rRestlessness was decreased.");
-			} else {
-				System.out.println("Invalid Input");
-			}
-		}
-	}
-
-	private static void waterPets(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("Type ALL to water all your rocks or type a rock's name to water just that one.");
-		String waterChoice = input.nextLine();
-		if (waterChoice.equalsIgnoreCase("all")) {
-			shelter.waterAllPets();
-		} else {
-			if (shelter.getAllPets().containsKey(waterChoice)) {
-				shelter.getPet(waterChoice).waterPet();
-				System.out.println("\rThirst was decreased.");
-			} else {
-				System.out.println("Invalid Input");
-			}
-		}
-	}
-
-	private static void feedPets(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("Type ALL to feed all your rocks or type a rock's name to feed just that one.");
-		String feedChoice = input.nextLine();
-		if (feedChoice.equalsIgnoreCase("all")) {
-			shelter.feedAllPets();
-		} else {
-			if (shelter.getAllPets().containsKey(feedChoice)) {
-				shelter.getPet(feedChoice).feedPet();
-				System.out.println("\rHunger was decreased.");
-			} else {
-				System.out.println("Invalid Input");
-			}
-		}
-	}
-
-	private static void noPets(VirtualPetShelter shelter, Scanner input) {
-		System.out.println("You realize there is a single rock sitting in the pen. Name it.");
-		String name = input.nextLine();
-		shelter.takeIn(name);
+		shelter.addPet(newPet);
 	}
 
 }

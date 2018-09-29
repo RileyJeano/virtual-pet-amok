@@ -18,6 +18,12 @@ public class OrganicPet extends Pet {
 		this.thirst = 5;
 	}
 
+	public OrganicPet(String name, String species) {
+		super(name, species);
+		this.hunger = 5;
+		this.thirst = 5;
+	}
+
 	public int getHunger() {
 		return hunger;
 	}

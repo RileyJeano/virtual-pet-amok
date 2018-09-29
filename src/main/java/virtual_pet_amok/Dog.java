@@ -7,6 +7,13 @@ public class Dog extends OrganicPet implements Walkable {
 
 	public Dog(String name) {
 		super(name);
+		setSpecies("dog");
+		poopRate = 1;
+		poopLevel = 0;
+	}
+
+	public Dog(String name, String species) {
+		super(name, species);
 		poopRate = 1;
 		poopLevel = 0;
 	}
@@ -45,5 +52,13 @@ public class Dog extends OrganicPet implements Walkable {
 	public int healthAlgorithm() {
 		return getHealth() - ((getThirst() - 5) - (getHunger() - 3) - (getBoredom() - 10) - (poopLevel))
 				+ (getHappiness() * 2);
+	}
+
+	@Override
+	public String displayStats() {
+		return getName() + "\r" + getDescription() + "\r|| Happiness: " + getHappiness() + " ||Health " + getHealth()
+				+ " ||Boredom " + getBoredom() + "\r|| Hunger " + getHunger() + " || Thirst " + getThirst()
+				+ " || Poop Level " + poopLevel;
+
 	}
 }
