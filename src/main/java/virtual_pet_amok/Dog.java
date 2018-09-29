@@ -50,8 +50,10 @@ public class Dog extends OrganicPet implements Walkable {
 	}
 
 	public int healthAlgorithm() {
-		return getHealth() - ((getThirst() - 5) - (getHunger() - 3) - (getBoredom() - 10) - (poopLevel))
-				+ (getHappiness() * 2);
+//		return getHealth() - ((getThirst() - 5) - (getHunger() - 3) - (getBoredom() - 10) - (poopLevel))
+//				+ (getHappiness() * 2);
+		return (getHealth() - getThirst() - getHunger() - getBoredom() - poopLevel) + (getHappiness() * 2);
+
 	}
 
 	@Override

@@ -106,6 +106,7 @@ public class Pet {
 
 	public void playWithPet() {
 		boredom -= 3;
+		happiness += 3;
 	}
 
 	public String getSpecies() {

@@ -27,17 +27,20 @@ public class RobotPet extends Pet implements Walkable {
 	}
 
 	public void oil() {
-		setHealth(getHealth() + 4);
+		rust = rust - 4;
+		System.out.println("BOOP");
+		// setHealth(getHealth() + 4);
 	}
 
 	@Override
 	public void tick() {
 		setHealth(healthAlgorithm());
+		rust++;
 		increaseBoredom(1);
 	}
 
 	public int healthAlgorithm() {
-		return getHealth() - ((getBoredom() - 5) - (rust - 5)) + (getHappiness());
+		return getHealth() - (getBoredom()) - (rust) + (getHappiness());
 	}
 
 	public void walk() {

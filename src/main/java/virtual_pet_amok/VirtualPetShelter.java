@@ -68,7 +68,7 @@ public class VirtualPetShelter {
 
 	// walk all dogs
 	public void walkAllDogs() {
-		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+		for (Pet currentPet : getPets()) {
 			if (currentPet instanceof Walkable) {
 				((Walkable) currentPet).walk();
 
@@ -78,7 +78,7 @@ public class VirtualPetShelter {
 
 	// clean a dog cage
 	public void cleanAllCages() {
-		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+		for (Pet currentPet : getPets()) {
 			if (currentPet instanceof Dog) {
 				((Dog) currentPet).cleanCage();
 
@@ -88,7 +88,7 @@ public class VirtualPetShelter {
 
 	// clean the litter boxes
 	public void cleanLitterBox() {
-		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+		for (Pet currentPet : getPets()) {
 			if (currentPet instanceof Cat) {
 				((Cat) currentPet).cleanBox();
 
@@ -98,9 +98,10 @@ public class VirtualPetShelter {
 
 	// oil all robots
 	public void oilAllRobots() {
-		for (Entry<String, Pet> currentPet : pets.entrySet()) {
+		for (Pet currentPet : getPets()) {
 			if (currentPet instanceof RobotPet) {
 				((RobotPet) currentPet).oil();
+				System.out.println("AHHH BOOP");
 
 			}
 		}
