@@ -1,5 +1,6 @@
 package virtual_pet_amok;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
@@ -33,10 +34,10 @@ public class VirtualPetShelterApp {
 		// Main game Loop
 		while (shelter.isOpen()) {
 			if (shelter.isEmpty()) {
-				// TODO you've killed all your pets somehow
+
 				System.out.println(
 						"Every pet in your shelter has died. As you start to think this might not be the job for you,\rthe police come to your shelter and shut you down. The world's lost and abandoned pets rejoice.");
-				// TODO just double check
+
 				shelter.shutDown();
 			} else {
 				for (Pet currentPet : shelter.getPets()) {
@@ -90,19 +91,39 @@ public class VirtualPetShelterApp {
 
 		case "FEED":
 			// TODO generate a random food each time?
-			System.out.println("You break out your enormous bag of pet chow.");
+			String[] list1 = { "pet food", "lucky charms", "oranges", "treats", "snails", "grass", "pizza", "lollypops",
+					"moral abiguity", "hazelnuts", "pancakes", "paw paws", "dirt", "kit kat bars", "human souls",
+					"spagetti", "wizard lizzards" };
+
+			Random randNum = new Random();
+			int rand1 = randNum.nextInt(list1.length);
+			String food = list1[rand1];
+
+			System.out.println("You break out your enormous bag of " + food);
 			shelter.feedAllPets();
 			break;
 
 		case "WATER":
 			// TODO generate a random drink?
-			System.out.println("You come back from the store with 300 gallons of water. Will it be enough?");
+			String[] list2 = { "a pitcher of water", "a glass of lemonade", "a thimble full of tea",
+					"30 gallons of coffee", "a pool of pickle juice", "a vial of snail tears", "purrified pizza",
+					"4 bottles of champagne", "90 bottles of champagne", "toilet water",
+					"apple juice from a lemonade stand", "a thermos of hot coco" };
+
+			Random randNum2 = new Random();
+			int rand2 = randNum2.nextInt(list2.length);
+			String drink = list2[rand2];
+			System.out.println("You come back from the store with " + drink + ". Will it be enough?");
 			shelter.waterAllPets();
 			break;
 
 		case "OIL":
-			System.out.println(
-					"You swing by the auto parts store because they're having a deal, then oil every robot in your shelter.");
+			String[] list3 = { "olive", "sesame", "motor", "canola", "grapeseed", "avocado", "WD 210 engine" };
+
+			Random randNum3 = new Random();
+			int rand3 = randNum3.nextInt(list3.length);
+			String oil = list3[rand3];
+			System.out.println("You grab your bottle of " + oil + " oil and get to work.");
 			shelter.oilAllRobots();
 			break;
 
@@ -138,7 +159,7 @@ public class VirtualPetShelterApp {
 	}
 
 	private static void takeInPet(Scanner input, VirtualPetShelter shelter) {
-		System.out.println("Please name the animal you will take it:");
+		System.out.println("Please name the animal you will take in:");
 		String nameChoice = input.nextLine();
 		System.out.println("What kind of animal would you like to add to your shelter? Enter a number.");
 		System.out.println("1: Normal Cat");
@@ -146,8 +167,9 @@ public class VirtualPetShelterApp {
 		System.out.println("3: Robot Cat");
 		System.out.println("4: Robot Dog");
 		String userChoice = input.nextLine();
-		// TODO make asbestos sick
-		Pet newPet = new Cat("Asbestos", "cat");
+
+		Pet newPet = new Cat("Asbestos", "cat",
+				"A sickly cat the color of gutter water. It has no teeth. It coughs up smoke.", 0, 4, 20, 5, 6);
 		switch (userChoice) {
 		case "1":
 			newPet = new Cat(nameChoice, "cat");

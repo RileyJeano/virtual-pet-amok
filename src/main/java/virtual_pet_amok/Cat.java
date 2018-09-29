@@ -17,6 +17,11 @@ public class Cat extends OrganicPet {
 		super(name, happiness, boredom, health, hunger, thirst);
 	}
 
+	public Cat(String name, String species, String description, int happiness, int boredom, int health, int hunger,
+			int thirst) {
+		super(name, species, description, happiness, boredom, health, hunger, thirst);
+	}
+
 	@Override
 	public void tick() {
 		setHealth(healthAlgorithm());
@@ -37,13 +42,13 @@ public class Cat extends OrganicPet {
 	public int healthAlgorithm() {
 //		return getHealth() - ((getThirst() - 5) - (getHunger() - 3) - (getBoredom() - 10) - (poopLevel))
 //				+ (getHappiness() * 2);
-		return (getHealth() - getThirst() - getHunger() - getBoredom() - poopLevel) + (getHappiness() * 2);
+		return (getHealth() - getThirst() / 4 - getHunger() / 4 - getBoredom() / 4 - poopLevel / 3) + (getHappiness());
 	}
 
 	@Override
 	public String displayStats() {
-		return getName() + "\r" + getDescription() + "\r|| Happiness: " + getHappiness() + " ||Health " + getHealth()
-				+ " ||Boredom " + getBoredom() + "\r|| Hunger " + getHunger() + " || Thirst " + getThirst()
+		return getName() + "\r" + getDescription() + "\r|| Happiness: " + getHappiness() + " || Health " + getHealth()
+				+ " || Boredom " + getBoredom() + " || Hunger " + getHunger() + " || Thirst " + getThirst()
 				+ " || Poop Level " + poopLevel;
 
 	}

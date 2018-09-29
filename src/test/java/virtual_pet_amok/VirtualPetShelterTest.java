@@ -72,39 +72,6 @@ public class VirtualPetShelterTest {
 		Assert.assertEquals(2, pet1.getBoredom());
 	}
 
-	// TODO why is this working??????????
-//	@Test
-//	public void shouldIntakeHomelessPet() {
-//		VirtualPetShelter underTest = new VirtualPetShelter();
-//		underTest.takeIn("Shellby");
-//		Map<String, Pet> test = underTest.getAllPets();
-//		Assert.assertEquals(false, test.isEmpty());
-//	}
-//
-//	@Test
-//	public void shouldAdoptOut() {
-//		VirtualPetShelter underTest = new VirtualPetShelter();
-//		underTest.takeIn("Cuddles");
-//		underTest.adoptOut("Cuddles");
-//		Map<String, Pet> test = underTest.getAllPets();
-//		Assert.assertEquals(true, test.isEmpty());
-//
-//	}
-
-//	@Test
-//	public void shouldBeOpen() {
-//		VirtualPetShelter underTest = new VirtualPetShelter();
-//		for (int i = 0; i <= 15; i++) {
-//			underTest.takeIn("Cuddles");
-//			for (int j = 0; j <= 15; j++) {
-//				underTest.tick();
-//			}
-//		}
-//		underTest.tick();
-//		boolean actual = underTest.isOpen();
-//		Assert.assertEquals(false, actual);
-//	}
-
 	@Test
 	public void shouldRemoveAPetThatsDied() {
 		VirtualPetShelter underTest = new VirtualPetShelter();

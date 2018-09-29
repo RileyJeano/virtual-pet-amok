@@ -119,11 +119,11 @@ public class VirtualPetShelter {
 
 			currentPet.getValue().tick();
 			currentPet.getValue().isDead();
-//TODO ask max
 			if (currentPet.getValue().getDead() == true) {
 				deaths++;
 				deadList.add(currentPet.getKey());
 				deadName = currentPet.getValue().getName();
+				System.out.println("Oh nooooo " + deadName + " has died! You monster!");
 
 			}
 		}

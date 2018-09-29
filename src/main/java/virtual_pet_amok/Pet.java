@@ -20,6 +20,15 @@ public class Pet {
 		this.description = generateDescription();
 	}
 
+	public Pet(String name, String species, String description, int happiness, int boredom, int health) {
+		this.name = name;
+		this.happiness = happiness;
+		this.boredom = boredom;
+		this.health = health;
+		this.species = species;
+		this.description = description;
+	}
+
 	public Pet(String name) {
 		this.name = name;
 		this.happiness = 0;
@@ -126,7 +135,6 @@ public class Pet {
 
 	}
 
-	// TODO Max is this the best way to do this???
 	public void isDead() {
 		if (health <= 0) {
 			toggleDeath();

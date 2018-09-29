@@ -40,7 +40,7 @@ public class RobotPet extends Pet implements Walkable {
 	}
 
 	public int healthAlgorithm() {
-		return getHealth() - (getBoredom()) - (rust) + (getHappiness());
+		return getHealth() - (getBoredom() / 2) - (rust / 2) + (getHappiness());
 	}
 
 	public void walk() {

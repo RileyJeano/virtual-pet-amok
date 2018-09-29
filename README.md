@@ -1,6 +1,6 @@
 #Riley and Max's project
-#Besides the basic function of the required rubric..
-#we also added a randomly generated description of each pet
-#We have personal messages depending on how the pet died
-#We have a counter that checks if you killed to many pets
-#Pets can only be adopted if they are happy enough 
+#Besides the basic function of the required rubric...
+#we added a randomly generated description of each pet but it specifies each speices
+#When you add a pet you must specifiy name and species 
+#We have a message print out when you killed a pet
+#The cats health are rounding slightly differently but they are the same health algorithm  (the cats health with vary cat to cat due to rounding)(also genetics)
