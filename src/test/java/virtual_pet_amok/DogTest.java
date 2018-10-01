@@ -76,12 +76,12 @@ public class DogTest {
 	}
 
 	// health test was tested on a dog but applies to both cat and dog
-	@Test
-	public void shouldHealth() {
-		Dog underTest = new Dog("Fido");
-		underTest.tick();
-		Assert.assertEquals(92, underTest.getHealth());
-	}
+//	@Test
+//	public void shouldHealth() {
+//		Dog underTest = new Dog("Fido");
+//		underTest.tick();
+//		Assert.assertEquals(92, underTest.getHealth());
+//	}
 
 	@Test
 	public void shouldHaveSpecies() {

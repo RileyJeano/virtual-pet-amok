@@ -9,8 +9,8 @@ public class RobotPetTest {
 	public void shouldOil() {
 		RobotPet underTest = new RobotPet("Pete", 5, 5, 5, 5);
 		underTest.oil();
-		int expected = underTest.getHealth();
-		Assert.assertEquals(9, expected);
+		int expected = underTest.getRust();
+		Assert.assertEquals(1, expected);
 	}
 
 	@Test
